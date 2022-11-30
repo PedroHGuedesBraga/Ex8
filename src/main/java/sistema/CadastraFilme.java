@@ -1,0 +1,61 @@
+package sistema;
+
+import exceptions.FilmeJaCadastradoExecption;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+public class CadastraFilme implements ActionListener{
+    SistemaFilmeGUI screen;
+    SistemaFilmesMap sistemaFilmesMap;
+    public CadastraFilme(SistemaFilmeGUI screen, SistemaFilmesMap sistemaFilmesMap) {
+        this.screen = screen;
+        this.sistemaFilmesMap = sistemaFilmesMap;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+           String codigo = JOptionPane.showInputDialog("digite o codigo do filme");
+           String nome = JOptionPane.showInputDialog("digite o nome do filme");
+           int anoLancamento = Integer.parseInt(JOptionPane.showInputDialog("digite  o ano de lançamento do filme"));
+           int duracao = Integer.parseInt(JOptionPane.showInputDialog("digite a duração do filme"));
+
+
+           List<CategoriaFilme> categorias = new ArrayList<>();
+           int continuar = 0;
+
+            while(continuar == JOptionPane.YES_OPTION){
+                CategoriaFilme categoria = null;
+                CategoriaFilme[] options = {
+                        CategoriaFilme.ACAO,
+                        CategoriaFilme.ROMANCE,
+                        CategoriaFilme.TERROR,
+                        CategoriaFilme.COMEDIA,
+                        CategoriaFilme.DRAMA
+                };// podemos adicionar novos partidos aqui
+
+                Object categoriaEscolha = JOptionPane.showInputDialog(null, null, "escolha uma categoria para o filme",
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                for (CategoriaFilme escolha : options) {
+                    if (escolha.equals(categoriaEscolha)) {
+                        categoria = escolha;
+                        categorias.add(categoria);
+                    }
+                }
+
+                continuar = JOptionPane.showConfirmDialog(null,"deseja adicionar mais alguma categoria?","atenção",JOptionPane.YES_NO_OPTION);
+            }
+
+
+
+            sistemaFilmesMap.cadastrarFilme(codigo,nome,anoLancamento,duracao,categorias);
+        } catch (FilmeJaCadastradoExecption ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+}

@@ -1,26 +1,29 @@
+package sistema;
+
 import java.util.List;
 
 public class Filme {
     private String codigo;
     private String nome;
-    private String anoLancamento;
+    private int anoLancamento;
     private int duracaoEmMinutos;
 
-    private List <CategoriaFilme> CategoriaFilme;
+    private List <CategoriaFilme> categoriaFilme;
 
-    public Filme() {
 
-    }
 
-    public Filme(String codigo, String nome, String anoLancamento, int duracaoEmMinutos, CategoriaFilme categoriaFilme) {
+    public Filme(String codigo, String nome, int anoLancamento, int duracaoEmMinutos, List<CategoriaFilme> categoriaFilme) {
         this.codigo = codigo;
         this.nome = nome;
         this.anoLancamento = anoLancamento;
         this.duracaoEmMinutos = duracaoEmMinutos;
+        this.categoriaFilme = categoriaFilme;
     }
+    public Filme(){this("","",0,0,null);}
+
     public boolean ehDaCategoria(CategoriaFilme categoria) {
-        for (CategoriaFilme cat: this.CategoriaFilme) {
-            if (cat ==categoria) {
+        for (CategoriaFilme cat: this.categoriaFilme) {
+            if (cat.equals(categoria)) {
                 return true;
             }
         }
@@ -44,11 +47,11 @@ public class Filme {
         this.nome = nome;
     }
 
-    public String getAnoLancamento() {
+    public int getAnoLancamento() {
         return anoLancamento;
     }
 
-    public void setAnoLancamento(String anoLancamento) {
+    public void setAnoLancamento(int anoLancamento) {
         this.anoLancamento = anoLancamento;
     }
 

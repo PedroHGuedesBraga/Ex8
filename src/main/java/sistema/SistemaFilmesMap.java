@@ -1,5 +1,7 @@
-import Exceptions.FilmeJaCadastradoExecption;
-import Exceptions.FilmeNaoExisteExecption;
+package sistema;
+
+import exceptions.FilmeJaCadastradoExecption;
+import exceptions.FilmeNaoExisteExecption;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,21 +9,23 @@ import java.util.List;
 import java.util.Map;
 
 public class SistemaFilmesMap {
-    Map<String,Filme> filmesMap = new HashMap<>();
+    Map<String,Filme> filmesMap;
+
+
 
     public SistemaFilmesMap(){
-
+        filmesMap = new HashMap<>();
     }
 
-    public void cadastrarFilme( String codigo, String nome, String anoLancamento,int duracaoEmMinutos,CategoriaFilme CategoriaFilme) throws FilmeJaCadastradoExecption {
-        Filme filme = new Filme(codigo, nome, anoLancamento, duracaoEmMinutos, CategoriaFilme);
+    public void cadastrarFilme( String codigo, String nome, int anoLancamento,int duracaoEmMinutos,List<CategoriaFilme> categoriaFilme ) throws FilmeJaCadastradoExecption {
+        Filme filme = new Filme(codigo, nome, anoLancamento, duracaoEmMinutos, categoriaFilme);
         if(filmesMap.containsKey(codigo)){
-        throw new FilmeJaCadastradoExecption("Filme já cadastrado");
+        throw new FilmeJaCadastradoExecption("SistemaFilmes.Filme já cadastrado");
         }else{
             filmesMap.put(codigo,filme);
         }
-
     }
+
     public Filme pesquisaFilme(String codigo) throws FilmeNaoExisteExecption {
         if (filmesMap.containsKey(codigo)) {
             return filmesMap.get(codigo);
@@ -30,13 +34,12 @@ public class SistemaFilmesMap {
         }
     }
 
-    public List<Filme>obterFilmesLancadosEm(int ano){
+    public List<Filme> obterFilmesLancadosEm(int ano){
         List<Filme> obterLancados = new ArrayList<>();
         for( Filme f : filmesMap.values()){
-            if (f.getAnoLancamento().equals(ano)){
+            if (f.getAnoLancamento() == ano){
                 obterLancados.add(f);
             }
-
         }
         return obterLancados;
     }
@@ -58,13 +61,13 @@ public class SistemaFilmesMap {
         return false;
     }
     public int contaFilmesDaCategoria( CategoriaFilme categoria){
-        int count = 0;
+        int cont = 0;
         for (Filme f: filmesMap.values()) {
             if (f.ehDaCategoria(categoria)){
-                count++;
+                cont++;
             }
         }
-        return count;
+        return cont;
     }
 
 }

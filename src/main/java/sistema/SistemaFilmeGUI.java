@@ -1,14 +1,14 @@
-import Exceptions.FilmeJaCadastradoExecption;
-import Exceptions.FilmeNaoExisteExecption;
+package sistema;
+
+import exceptions.FilmeNaoExisteExecption;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class cadastrar extends JFrame  {
+public class SistemaFilmeGUI extends JFrame  {
 
-public cadastrar(SistemaFilmesMap sistemaFilmesMap){
+public SistemaFilmeGUI(SistemaFilmesMap sistemaFilmesMap){
     //Tela
     setTitle("Sistema Filmes");
     setSize(1280,720);
@@ -39,10 +39,10 @@ public cadastrar(SistemaFilmesMap sistemaFilmesMap){
     obterFilmesLancadosEm.setBounds(100,100,05,05);
     obterFilmesLancadosEm.setVisible(true);
 
-// Cria botão> actionListener > faz esse bagulho aqui de baixo(criar nova funcionalidade)
+    // Cria botão> actionListener > faz esse bagulho aqui de baixo(criar nova funcionalidade)
     //add.ActionListener(new "Nome do novo metodo no caso o botao(this, a classe com que ele se refere))
     pesquisa.addActionListener(new pesquisaFilme(this,sistemaFilmesMap));
-    cadastrar.addActionListener(new cadastraFilme(this,sistemaFilmesMap));
+    cadastrar.addActionListener(new CadastraFilme(this,sistemaFilmesMap));
     obterFilmesLancadosEm.addActionListener(new ObterFilmesLancadosEm(this,sistemaFilmesMap));
     //Adicionando botões ao layout :
     layout.add(pesquisa);
@@ -52,33 +52,17 @@ public cadastrar(SistemaFilmesMap sistemaFilmesMap){
     this.add(layout,BorderLayout.CENTER);
     setVisible(true);
 }
-    // dpois implementa o action com base na classe que recebe
+    // depois implementar o action com base na classe que recebe
     // criar classe interna
 
 
-    private class cadastraFilme implements ActionListener {
-       cadastrar screen;
-       SistemaFilmesMap sistemaFilmesMap;
-        public cadastraFilme(cadastrar screen, SistemaFilmesMap sistemaFilmesMap) {
-            this.screen = screen;
-            this.sistemaFilmesMap = sistemaFilmesMap;
-        }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                sistemaFilmesMap.cadastrarFilme("02","vsf","2001",10,CategoriaFilme.TERROR);
-            } catch (FilmeJaCadastradoExecption ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-    }
 
     private class pesquisaFilme implements ActionListener {
-        cadastrar screen;
+        SistemaFilmeGUI screen;
         SistemaFilmesMap sistemaFilmesMap;
-        public pesquisaFilme(cadastrar cadastrar, SistemaFilmesMap sistemaFilmesMap) {
-            this.screen = cadastrar;
+        public pesquisaFilme(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmesMap sistemaFilmesMap) {
+            this.screen = SistemaFilmeGUI;
             this.sistemaFilmesMap = sistemaFilmesMap;
         }
 
@@ -96,10 +80,10 @@ public cadastrar(SistemaFilmesMap sistemaFilmesMap){
 
 
     private class ObterFilmesLancadosEm implements ActionListener {
-        cadastrar screen;
+        SistemaFilmeGUI screen;
         SistemaFilmesMap sistemaFilmesMap;
-        public ObterFilmesLancadosEm(cadastrar cadastrar, SistemaFilmesMap sistemaFilmesMap) {
-            this.screen = cadastrar;
+        public ObterFilmesLancadosEm(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmesMap sistemaFilmesMap) {
+            this.screen = SistemaFilmeGUI;
             this.sistemaFilmesMap = sistemaFilmesMap;
         }
 

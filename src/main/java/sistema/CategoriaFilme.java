@@ -1,3 +1,5 @@
+package sistema;
+
 public enum CategoriaFilme {
     COMEDIA,
     ROMANCE,
