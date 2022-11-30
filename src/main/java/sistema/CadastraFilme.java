@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 
 public class CadastraFilme implements ActionListener{
     SistemaFilmeGUI screen;
-    SistemaFilmesMap sistemaFilmesMap;
-    public CadastraFilme(SistemaFilmeGUI screen, SistemaFilmesMap sistemaFilmesMap) {
+    SistemaFilmeMap sistemaFilmeMap;
+    public CadastraFilme(SistemaFilmeGUI screen, SistemaFilmeMap sistemaFilmeMap) {
         this.screen = screen;
-        this.sistemaFilmesMap = sistemaFilmesMap;
+        this.sistemaFilmeMap = sistemaFilmeMap;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CadastraFilme implements ActionListener{
 
 
 
-            sistemaFilmesMap.cadastrarFilme(codigo,nome,anoLancamento,duracao,categorias);
+            sistemaFilmeMap.cadastrarFilme(codigo,nome,anoLancamento,duracao,categorias);
         } catch (FilmeJaCadastradoExecption ex) {
             throw new RuntimeException(ex);
         }

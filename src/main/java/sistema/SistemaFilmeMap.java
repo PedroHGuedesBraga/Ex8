@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SistemaFilmesMap {
+public class SistemaFilmeMap implements SistemaFilmeInterface{
     Map<String,Filme> filmesMap;
 
 
 
-    public SistemaFilmesMap(){
+    public SistemaFilmeMap(){
         filmesMap = new HashMap<>();
     }
 
@@ -23,6 +23,13 @@ public class SistemaFilmesMap {
         throw new FilmeJaCadastradoExecption("SistemaFilmes.Filme já cadastrado");
         }else{
             filmesMap.put(codigo,filme);
+        }
+    }
+    public void cadastrarFilme(Filme filme) throws FilmeJaCadastradoExecption {
+        if(filmesMap.containsKey(filme.getCodigo())){
+            throw new FilmeJaCadastradoExecption("SistemaFilmes.Filme já cadastrado");
+        }else{
+            filmesMap.put(filme.getCodigo(),filme);
         }
     }
 

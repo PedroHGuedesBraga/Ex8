@@ -6,14 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.WindowConstants;
 public class SistemaFilmeGUI extends JFrame  {
 
-public SistemaFilmeGUI(SistemaFilmesMap sistemaFilmesMap){
+public SistemaFilmeGUI(SistemaFilmeMap sistemaFilmeMap){
     //Tela
     setTitle("Sistema Filmes");
     setSize(1280,720);
     setResizable(false);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     this.setLayout(new BorderLayout(5,5));
     //Componente dentro da janela
@@ -41,9 +42,9 @@ public SistemaFilmeGUI(SistemaFilmesMap sistemaFilmesMap){
 
     // Cria botão> actionListener > faz esse bagulho aqui de baixo(criar nova funcionalidade)
     //add.ActionListener(new "Nome do novo metodo no caso o botao(this, a classe com que ele se refere))
-    pesquisa.addActionListener(new pesquisaFilme(this,sistemaFilmesMap));
-    cadastrar.addActionListener(new CadastraFilme(this,sistemaFilmesMap));
-    obterFilmesLancadosEm.addActionListener(new ObterFilmesLancadosEm(this,sistemaFilmesMap));
+    pesquisa.addActionListener(new PesquisaFilme(this, sistemaFilmeMap));
+    cadastrar.addActionListener(new CadastraFilme(this, sistemaFilmeMap));
+    obterFilmesLancadosEm.addActionListener(new ObterFilmesLancadosEm(this, sistemaFilmeMap));
     //Adicionando botões ao layout :
     layout.add(pesquisa);
     layout.add(cadastrar);
@@ -58,19 +59,19 @@ public SistemaFilmeGUI(SistemaFilmesMap sistemaFilmesMap){
 
 
 
-    private class pesquisaFilme implements ActionListener {
+    private class PesquisaFilme implements ActionListener {
         SistemaFilmeGUI screen;
-        SistemaFilmesMap sistemaFilmesMap;
-        public pesquisaFilme(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmesMap sistemaFilmesMap) {
-            this.screen = SistemaFilmeGUI;
-            this.sistemaFilmesMap = sistemaFilmesMap;
+        SistemaFilmeMap sistemaFilmeMap;
+        public PesquisaFilme(SistemaFilmeGUI sistema, SistemaFilmeMap sistemaFilmeMap) {
+            this.screen = sistema;
+            this.sistemaFilmeMap = sistemaFilmeMap;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                sistemaFilmesMap.pesquisaFilme("02");
-                System.out.println(sistemaFilmesMap.pesquisaFilme("02"));
+                sistemaFilmeMap.pesquisaFilme("02");
+                System.out.println(sistemaFilmeMap.pesquisaFilme("02"));
             } catch (FilmeNaoExisteExecption ex) {
                 throw new RuntimeException(ex);
             }
@@ -81,15 +82,15 @@ public SistemaFilmeGUI(SistemaFilmesMap sistemaFilmesMap){
 
     private class ObterFilmesLancadosEm implements ActionListener {
         SistemaFilmeGUI screen;
-        SistemaFilmesMap sistemaFilmesMap;
-        public ObterFilmesLancadosEm(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmesMap sistemaFilmesMap) {
+        SistemaFilmeMap sistemaFilmeMap;
+        public ObterFilmesLancadosEm(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmeMap sistemaFilmeMap) {
             this.screen = SistemaFilmeGUI;
-            this.sistemaFilmesMap = sistemaFilmesMap;
+            this.sistemaFilmeMap = sistemaFilmeMap;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            sistemaFilmesMap.obterFilmesLancadosEm(20);
+            sistemaFilmeMap.obterFilmesLancadosEm(20);
         }
     }
 }
