@@ -1,11 +1,12 @@
 package sistema;
 
-import exceptions.FilmeNaoExisteExecption;
+import sistema.action.CadastraFilme;
+import sistema.action.PesquisaFilmeAno;
+import sistema.action.PesquisaFilmeCodigo;
+import sistema.action.Sair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.WindowConstants;
 public class SistemaFilmeGUI extends JFrame  {
 
@@ -24,31 +25,39 @@ public SistemaFilmeGUI(SistemaFilmeMap sistemaFilmeMap){
     //Botoes
 
     //Pesquisa
-    JButton pesquisa = new JButton("Pesquisar");
-    pesquisa.setBounds(100,100,05,05);
+    JButton pesquisa = new JButton("Pesquisar um filme");
+    pesquisa.setBounds(100,100,5,5);
 
     pesquisa.setVisible(true);
 
     //Cadastro
     JButton cadastrar = new JButton("Cadastrar");
-    cadastrar.setBounds(100,100,05,05);
+    cadastrar.setBounds(100,100,5,5);
     cadastrar.setVisible(true);
 
-    //obterFilmesLancadosEm
-    JButton obterFilmesLancadosEm = new JButton("obterFilmesLancadosEm");
+    //obterFilmesLancadosEmAno
+    JButton obterFilmesLancadosEmAno = new JButton("Pesquisar filmes por data");
 
-    obterFilmesLancadosEm.setBounds(100,100,05,05);
-    obterFilmesLancadosEm.setVisible(true);
+    obterFilmesLancadosEmAno.setBounds(100,100, 5,5);
+    obterFilmesLancadosEmAno.setVisible(true);
+
+    //sair
+    JButton sair = new JButton("Sair");
+    sair.setBounds(100,100,5,5);
+    sair.setVisible(true);
 
     // Cria botão> actionListener > faz esse bagulho aqui de baixo(criar nova funcionalidade)
     //add.ActionListener(new "Nome do novo metodo no caso o botao(this, a classe com que ele se refere))
-    pesquisa.addActionListener(new PesquisaFilme(this, sistemaFilmeMap));
+    pesquisa.addActionListener(new PesquisaFilmeCodigo(this, sistemaFilmeMap));
     cadastrar.addActionListener(new CadastraFilme(this, sistemaFilmeMap));
-    obterFilmesLancadosEm.addActionListener(new ObterFilmesLancadosEm(this, sistemaFilmeMap));
+    obterFilmesLancadosEmAno.addActionListener(new PesquisaFilmeAno(this, sistemaFilmeMap));
+    sair.addActionListener(new Sair(this, sistemaFilmeMap));
+
     //Adicionando botões ao layout :
     layout.add(pesquisa);
     layout.add(cadastrar);
-    layout.add(obterFilmesLancadosEm);
+    layout.add(obterFilmesLancadosEmAno);
+    layout.add(sair);
     this.setLayout(new BorderLayout(5,5));
     this.add(layout,BorderLayout.CENTER);
     setVisible(true);
@@ -57,41 +66,5 @@ public SistemaFilmeGUI(SistemaFilmeMap sistemaFilmeMap){
     // criar classe interna
 
 
-
-
-    private class PesquisaFilme implements ActionListener {
-        SistemaFilmeGUI screen;
-        SistemaFilmeMap sistemaFilmeMap;
-        public PesquisaFilme(SistemaFilmeGUI sistema, SistemaFilmeMap sistemaFilmeMap) {
-            this.screen = sistema;
-            this.sistemaFilmeMap = sistemaFilmeMap;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                sistemaFilmeMap.pesquisaFilme("02");
-                System.out.println(sistemaFilmeMap.pesquisaFilme("02"));
-            } catch (FilmeNaoExisteExecption ex) {
-                throw new RuntimeException(ex);
-            }
-
-        }
-    }
-
-
-    private class ObterFilmesLancadosEm implements ActionListener {
-        SistemaFilmeGUI screen;
-        SistemaFilmeMap sistemaFilmeMap;
-        public ObterFilmesLancadosEm(SistemaFilmeGUI SistemaFilmeGUI, SistemaFilmeMap sistemaFilmeMap) {
-            this.screen = SistemaFilmeGUI;
-            this.sistemaFilmeMap = sistemaFilmeMap;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            sistemaFilmeMap.obterFilmesLancadosEm(20);
-        }
-    }
 }
 

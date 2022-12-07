@@ -62,5 +62,25 @@ public class Filme {
     public void setDuracaoEmMinutos(int duracaoEmMinutos) {
         this.duracaoEmMinutos = duracaoEmMinutos;
     }
+   //imprime as cadegorias do filme organizado como String
+    public String imprimirCategorias(List<CategoriaFilme> categorias){
+        String catString = "";
+        for(CategoriaFilme cat : categorias){
+            catString = catString.concat(cat+",");
+        }
+        catString = catString.toLowerCase();
+        return catString;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Este filme tem " +"\n"+
+                "codigo: " + this.codigo + "\n" +
+                "nome: " + this.nome + "\n" +
+                "ano de lancamento: " + this.anoLancamento +"\n"+
+                "Duração: " + this.duracaoEmMinutos +" min"+"\n"+
+                "Categorias: " + imprimirCategorias(this.categoriaFilme);
+    }
 }
 

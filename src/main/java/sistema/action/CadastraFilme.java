@@ -1,6 +1,9 @@
-package sistema;
+package sistema.action;
 
 import exceptions.FilmeJaCadastradoExecption;
+import sistema.CategoriaFilme;
+import sistema.SistemaFilmeGUI;
+import sistema.SistemaFilmeMap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,7 +58,7 @@ public class CadastraFilme implements ActionListener{
 
             sistemaFilmeMap.cadastrarFilme(codigo,nome,anoLancamento,duracao,categorias);
         } catch (FilmeJaCadastradoExecption ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(null,"filme já cadastrado");
         }
     }
 }
